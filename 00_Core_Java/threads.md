@@ -1,7 +1,7 @@
-#Java Threads
+# Java Threads
 
 #### 11. What is the difference between processes and threads ? 
-A process is an execution of a program, while a [Thread](http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html) is a single execution sequence within a process. A process can contain multiple threads. A [Thread](http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html) is sometimes called a lightweight process.
+A process is an execution of a program, while a [Thread](http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html) is a single execution sequence within a process and alsp thread is a subset of process. A process can contain multiple threads. A [Thread](http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html) is sometimes called a lightweight process.
 
 #### 12. Explain different ways of creating a thread.Which one would you prefer and why ?
 There are three ways that can be used in order for a [Thread](http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html) to be created:
@@ -11,6 +11,10 @@ There are three ways that can be used in order for a [Thread](http://docs.oracle
 * An application can use the [Executor](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executor.html) framework, in order to create a thread pool.
 
 The [Runnable](http://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html) interface is preferred, as it does not require an object to inherit the [Thread](http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html) class. In case your application design requires multiple inheritance, only interfaces can help you. Also, the thread pool is very efficient and can be implemented and used very easily.
+
+
+#### When to use Runnable and when to use Thread in Java?
+Java does not support multiple inheritances of a class, but it allows to implement multiple interfaces at a time. Therefore, it will be better to implement Runnable than extending Thread class.
 
 #### 13. Explain the available thread states in a high-level.
 During its execution, a thread can reside in one of the following states:
