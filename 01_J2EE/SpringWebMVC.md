@@ -155,7 +155,54 @@ following are the list of supported parameters.
 3. namespace - Namespace of the WebApplicationContext. Defaults to [servlet-name]-servlet.
 
 
-## Implementing Controllers
+## 3. Implementing Controllers
 
 **Controllers provide access to the application behavior that you typically define through a service interface. Controllers interpret user input and transform it into a model that is represented to the user by the view.**
+
+### 3.1 Defining a controller with @Controller
+
+
+```java
+@Controller
+public class HelloWorldController {
+
+    @RequestMapping("/helloWorld")
+    public String helloWorld(Model model) {
+        model.addAttribute("message", "Hello World!");
+        return "helloWorld";
+    }
+}
+```
+
+*. The @Controller annotation indicates that a particular class serves the role of a controller.
+*. The @Controller annotation acts as a stereotype for the annotated class, indicating its role. The dispatcher scans such annotated classes for mapped methods and detects @RequestMapping annotations
+
+
+## Note:
+
+
+You can define annotated controller beans explicitly, using a standard Spring bean definition in the dispatcher's context. However, the @Controller stereotype also allows for autodetection, aligned with Spring general support for detecting component classes in the classpath and auto-registering bean definitions for them.
+
+To enable autodetection of such annotated controllers, you add component scanning to your configuration. Use the spring-context schema as shown in the following XML snippet:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="org.springframework.samples.petclinic.web"/>
+
+    <!-- ... -->
+
+</beans>
+```
+
+### Mapping Requests With @RequestMapping.
 
