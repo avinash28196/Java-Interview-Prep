@@ -65,7 +65,7 @@ expressions; resulting in large number of methods added in almost all Collection
 as well.
 
 
-## Thread Safty ?
+## Thread Safety ?
 
 1. A class is thread-safe when it continues to behave correctly when accessed from multiple threads.
 2. A piece of code is thread-safe if it only manipulates shared data structures in a manner that guarantees safe execution by     multiple threads at the same time.
@@ -365,4 +365,39 @@ When ever a thread enters into Java synchronized method or block it acquires a l
 
 ### 1.1. Runnable interface
 Java program to create thread by implementing Runnable interface.
+
+```java
+public class DemoRunnable implements Runnable {
+    public void run() {
+        //Code
+    }
+}
+```
+
+1.2. Thread class
+
+Java program to create thread by extending Thread class.
+```java
+
+public class DemoThread extends Thread {
+    public DemoThread() {
+        super("DemoThread");
+    }
+    public void run() {
+        //Code
+    }
+}
+```
+
+## 2. Difference between Runnable vs Thread
+
+There has been a good amount of debate on which is better way. Well, I also tried to find out and below is my learning.
+
+1. Implementing Runnable is the preferred way to do it. Here, you’re not really specializing or modifying the thread’s behavior. You’re just giving the thread something to run. That means composition is the better way to go.
+
+2. Java only supports single inheritance, so you can only extend one class.
+
+3. Instantiating an interface gives a cleaner separation between your code and the implementation of threads.
+
+4. Implementing Runnable makes your class more flexible. If you extend Thread then the action you’re doing is always going to be in a thread. However, if you implement Runnable it doesn’t have to be. You can run it in a thread, or pass it to some kind of executor service, or just pass it around as a task within a single threaded application.
 
