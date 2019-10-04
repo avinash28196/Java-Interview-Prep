@@ -2,6 +2,33 @@
 
 A lambda expression in Java is a concise way to express a method of a class in an expression. It has a list of parameters and a body. The body can be a single expression or a block. It is commonly used where an implementation of an interface is required. This need usually arises when an interface is required as the argument to invoke a method
 
+Lmabda's do achieve the following.
+
+1. They are anonymous, you do not need to define them in a named file or class.
+2. Can be assigned to a variable and stored in data structures.
+3. Passed to methods as arguments.
+4. Returned from methods.
+
+
+Lambda’s are not a class on their own (a type), instead, lambda’s are instantiated as a sub-type of a special subset of interfaces called functional interfaces. These classes are refereed as the lambda’s target type.
+
+```
+@FuncationalInterface
+public interface MyFunctionalInterface {
+  public void execute();
+}
+```
+
+### Functional interface.
+
+Functional interfaces are interfaces with exactly one abstract method. The @ FunctionalInterface annotation causes the compiler to enforce this check but it is not required.
+
+
+Do I have to create a new functional interface every time I write a Lambda expression?
+Fortunately, NO.
+
+
+
 Examples of lambda expressions.
 
 The following is a lambda expression which accepts two numbers x and y and computes the sum.
