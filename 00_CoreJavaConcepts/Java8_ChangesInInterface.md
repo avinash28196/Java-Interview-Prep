@@ -4,12 +4,9 @@
 1. Default Methods
 2. Static Methods
 
-
-
-
 ## 1. Interface Default  Methods
 
-Why Default Methods in Interfaces Are Needed ?
+#### Why Default Methods in Interfaces Are Needed ?
 
 Before Java 8, interfaces could have only public abstract methods. It was not possible to add new functionality to the existing interface without forcing all implementing classes to create an implementation of the new methods, nor it was possible to create interface methods with an implementation.
 
@@ -19,7 +16,6 @@ Starting with Java 8, interfaces can have static and default methods that, despi
 
 #### In this way, backward compatibility is neatly preserved without having to refactor the implementers.
 
-1.2 Default Method 
 
 Say that we have a naive Vehicle interface and just one implementation. 
 
@@ -204,52 +200,88 @@ Vehicle.getHorsePower(2500, 480));
 The idea behind static interface methods is to provide a simple mechanism that allows us to increase the degree of cohesion of a design by putting together related methods in one single place without having to create an object.
 
 
-2. Method References
+### Method References.
+
+There are four kind of method refernces.
+
+1. Static methods
+2. Instance methods of particular objects
+3. Instance methods of an arbitrary object of a particular type
+4. Constructor
 
 Method reference can be used as a shorter and more readable alternative for a lambda expression which only calls an existing method. 
 
 There are four variants of method references.
 
-2.1 Reference to a Static Method
+### 1.1 Reference to a Static Method
 
-The reference to a static method holds the following syntax: ContainingClass::methodName.
+The reference to a static method holds the following syntax: 
 
+#### ContainingClass::methodName.
 
-Let’s try to count all empty strings in the List<String> with help of Stream API.
+We'll begin with a very simple example, capitalizing and printing a list of Strings.
 
+```
+List<String> messages = Arrays.asList("hello", "baeldung", "readers!");
 
-boolean isReal = list.stream().anyMatch(u -> User.isRealUser(u));
-Take a closer look at lambda expression in the filter() method, it just makes a call to a static method isRealUser(User user) of the User class. 
-So it can be substituted with a reference to a static method:
+## We can achieve this by leveraging a simple lambda expression calling the StringUtils.capitalize() method directly
 
-boolean isReal = list.stream().anyMatch(User::isRealUser);
-This type of code looks much more informative.
+messages.forEach(word -> StringUtils.capitalize(word));
 
-2.2. Reference to an Instance Method
+```
 
-The reference to an instance method holds the following syntax: containingInstance::methodName. Following code calls method isLegalName(String string) of type User which validates an input parameter:
+we can use a method reference to simply refer to the capitalize static method.
 
+```
+messages.forEach(StringUtils::capitalize);
+```
+
+### 1.2. Reference to an Instance Method
+
+The reference to an instance method holds the following syntax: 
+
+#### containingInstance::methodName. 
+
+Following code calls method isLegalName(String string) of type User which validates an input parameter:
 
 User user = new User();
 boolean isLegalName = list.stream().anyMatch(user::isLegalName);
 
-2.3. Reference to an Instance Method of an Object of a Particular Type
-This reference method takes the following syntax: ContainingType::methodName. An example::
-long count = list.stream().filter(String::isEmpty).count();
+### 12.3. Reference to an Instance Method of an Object of a Particular Type
+This reference method takes the following syntax: 
 
-2.4. Reference to a Constructor
-A reference to a constructor takes the following syntax: ClassName::new. As constructor in Java is a special method, method reference could be applied to it too with the help of new as a method name.
+#### ContainingType::methodName. 
 
+Let's create an Integer list that we want to sort
+```
+List<Integer> numbers = Arrays.asList(5, 3, 50, 24, 40, 2, 9, 18);
+```
+
+If we use a classic lambda expression, both parameters need to be explicitly passed, while using a method reference is much more straightforward:
+
+```java
+numbers.stream().sorted((a, b) -> a.compareTo(b));
+
+numbers.stream().sorted(Integer::compareTo);
+```
+
+### 1.4. Reference to a Constructor
+A reference to a constructor takes the following syntax: 
+#### ClassName::new. 
+
+As constructor in Java is a special method, method reference could be applied to it too with the help of new as a method name.
+
+```java
 Stream<User> stream = list.stream().map(User::new);
+```
 
-
-3. Optional<T>
+### 3. Optional<T>
 Before Java 8 developers had to carefully validate values they referred to, because of a possibility of throwing the NullPointerException (NPE). All these checks demanded a pretty annoying and error-prone boilerplate code.
 
 Java 8 Optional<T> class can help to handle situations where there is a possibility of getting the NPE. It works as a container for the object of type T. It can return a value of this object if this value is not a null. When the value inside this container is null it allows doing some predefined actions instead of throwing NPE.
 
 
-3.1. Creation of the Optional<T>
+Creation of the Optional<T>
 An instance of the Optional class can be created with the help of its static methods:
 
 
